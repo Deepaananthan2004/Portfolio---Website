@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Deepa ananthan AR - Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(to bottom, #1a1a1a, #2a2a2a);
+      color: #b266ff;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #11111100;
+      padding: 12px 0;
+      text-align: center;
+    }
+    header nav a {
+      margin: 0 15px;
+      color: #b266ff;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 15px;
+    }
+    header nav a:hover {
+      color: #8800ff;
+    }
+
+    /* Big Banner Text */
+    .text-banner {
+      text-align: center;
+      padding: 50px 20px;
+      background: linear-gradient(to right, #8800ff00, #ff00cc00);
+    }
+    .text-banner h1 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 48px;
+      color: #b266ff;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      0% { text-shadow: 0 0 10px #b266ff, 0 0 20px #ff00cc, 0 0 30px #8800ff; }
+      100% { text-shadow: 0 0 20px #b266ff, 0 0 40px #ff00cc, 0 0 60px #8800ff; }
+    }
+      /* Floating Logos */
+    .floating-logo {
+      position: fixed;
+      top: -50px;
+      font-size: 50px;
+      opacity: 0.15;
+      animation: float 50s linear infinite;
+      z-index: 0;
+    }
+    @keyframes float {
+      from { transform: translateY(0) rotate(0deg); }
+      to   { transform: translateY(120vh) rotate(360deg); }
+    }
+    /* Sections */
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    h2, h3 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #b266ff;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 700;
+      color: #8800ff;
+      margin-bottom: 15px;
+    }
+    .hero .tagline {
+      font-size: 18px;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto 25px;
+      color: #ddd;
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 30px 0;
+    }
+    .stats div {
+      text-align: center;
+      font-size: 16px;
+      color: #fff;
+    }
+    .stats span {
+      font-size: 28px;
+      font-weight: bold;
+      color: #8800ff;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 10px 22px;
+      margin: 8px;
+      border-radius: 30px;
+      background: #8800ff;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: #3a1d58;
+    }
+
+/* Section spacing */
+section {
+  padding: 40px 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* Row for About Me, Projects, Skills */
+#about-projects-skills {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* 3 equal columns */
+  gap: 30px;
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+/* 3D Card (common style for all) */
+.card-3d {
+  width: 100%;              /* fills grid column */
+  height: 300px;
+  perspective: 800px;
+  cursor: pointer;
+}
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+}
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #8800ff00, #ff00cc00);
+  color: #fff;
+  border-radius: 20px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 18px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  overflow-y: auto;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.card-back { transform: rotateY(180deg); }
+.card-3d.expanded .card-inner { transform: rotateY(180deg); }
+
+
+
+    /* Grid for cards */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 20px;
+    }
+    .collapsible-card, .card {
+      background: #111;
+      border: 1px solid #b266ff;
+      border-radius: 12px;
+      padding: 15px;
+      transition: 0.3s;
+    }
+    .collapsible-card:hover, .card:hover {
+      background: #1f1f1f;
+    }
+    .card-header {
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    /* Contact */
+    #contact .card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+    #contact .card a { color: #b266ff; text-decoration: none; }
+
+    /* Social icons fixed */
+    .social-fixed {
+      position: fixed;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 999;
+    }
+    .social-fixed a {
+      background: #1f1f1f;
+      color: #b266ff;
+      font-size: 22px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+    }
+    .social-fixed a:hover {
+      background: #8800ff;
+      color: #fff;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      background: #000;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Text Banner -->
+  <div class="text-banner">
+    <h1>WELCOME TO MY PORTFOLIO</h1>
+  </div>
+
+  <!-- Floating Logos -->
+  <i class="fab fa-python floating-logo" style="left:10%; animation-delay:0s;"></i>
+  <i class="fab fa-html5 floating-logo" style="left:25%; animation-delay:5s;"></i>
+  <i class="fab fa-css3-alt floating-logo" style="left:40%; animation-delay:10s;"></i>
+  <i class="fab fa-js floating-logo" style="left:55%; animation-delay:15s;"></i>
+  <i class="fab fa-github floating-logo" style="left:70%; animation-delay:20s;"></i>
+  <i class="fab fa-linkedin floating-logo" style="left:85%; animation-delay:12s;"></i>
+  <i class="fas fa-envelope floating-logo" style="left:15%; animation-delay:7s;"></i>
+  <i class="fas fa-phone floating-logo" style="left:60%; animation-delay:17s;"></i>
+
+
+  <!-- Navbar -->
+  <header>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#contact">Contact</a>
+      <a href="https://drive.google.com/uc?export=download&id=15vYfQzJzWKHSDlHjyC6tAttLExaqQEBo">Resume</a>
+    </nav>
+  </header>
+
+<!-- About Me -->
+<div class="card-3d">
+  <div class="card-inner">
+    <div class="card-front"><h2>About Me</h2></div>
+    <div class="card-back">
+      <h2>Deepa ananthan AR</h2>
+      <p>
+        I am an enthusiastic <b>B.Tech Artificial Intelligence & Data Science</b> student (2022-2026)  
+        at Nehru Institute of Engineering and Technology, Coimbatore.  
+        <br><br>
+        🌟 My interests span across <b>Machine Learning, Deep Learning, Computer Vision,  
+        Natural Language Processing, Internet of Things (IoT), and Cloud Computing</b>.  
+        <br><br>
+        🔬 I have completed <b>12+ projects</b>, including real-time object detection, AI-powered  
+        career guidance, waste classification, and smart water monitoring.  
+        <br><br>
+        📚 Beyond academics, I actively participate in <b>hackathons, internships, and research</b>  
+        to stay updated with the latest AI trends and technologies.  
+        <br><br>
+        🏆 Achievements: Selected for <b>NTRO AI/ML Government Internship</b>,  
+        contributed to sustainability projects, and represented in hackathons.  
+        <br><br>
+        ⚡ Skills: Python, TensorFlow, Keras, OpenCV, YOLOv5, Tableau, Power BI,  
+        Splunk, AWS, IBM Cloud, API Development (Flask/FastAPI).
+      </p>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Social Icons -->
+  <div class="social-fixed">
+    <a href="https://www.linkedin.com/in/deepa-ananthan-ar" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="https://github.com/Deepaananthan2004" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="mailto:deepaananthanar@gmail.com"><i class="fas fa-envelope"></i></a>
+    <a href="https://www.instagram.com/myself_ananthan__" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://wa.me/918610378936" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <h1>Deepa ananthan AR</h1>
+    <p class="tagline">AI & Data Science student with experience in ML, analytics, and real-world applications.<br>
+    Skilled in Python, ML libraries, and cloud tools. Fast learner, team player, and problem solver.</p>
+
+    <div class="stats">
+      <div><span class="count" data-target="12">0</span><br>Projects</div>
+      <div><span class="count" data-target="10">0</span><br>Virtual Internships</div>
+      <div><span class="count" data-target="9">0</span><br>Certifications</div>
+    </div>
+
+    <div>
+      <a href="#contact" class="btn">Hire Me</a>
+      <a href="https://drive.google.com/uc?export=download&id=15vYfQzJzWKHSDlHjyC6tAttLExaqQEBo" class="btn">Download Resume</a>
+    </div>
+  </section>
+
+  <!-- Projects -->
+<section id="projects">
+  <h3>Projects</h3>
+  <div class="grid">
+    <div class="collapsible-card">
+      <div class="card-header">Dream Canvas+ (Jul 2025 · 1 mo) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        AI-powered story generator that creates visual stories from text prompts. <br>
+        <em>Python, OpenCV, Gemini Pro, TTS, Streamlit, MoviePy</em>
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Object Detection - Real Time (Jun 2025 · 1 mo) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        Real-time vehicle detection using YOLOv5. Capable of detecting multiple objects with bounding boxes. <br>
+        <em>Python, OpenCV, YOLOv5</em>
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Spot the Silent Threat (May-Jun 2025 · 2 mos) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        Insider threat detection system using behavioral drift analytics. <br>
+        <a href="https://splunk-build-hack-pwsgf4vbgfnni8gctqbyen.streamlit.app/" target="_blank">Live Demo</a> | 
+        <a href="https://github.com/Deepaananthan2004/splunk-Build-Hack.git" target="_blank">GitHub</a>
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">AI Career Adviser (May 2025 · 1 mo) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        Generative AI-based career guidance platform. Provides personalized recommendations for AI/ML careers. <br>
+        <em>Python, Generative AI, NLP</em>
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">AI-Based Product Review Summarizer (May 2025 · 1 mo) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        Summarizes product reviews from e-commerce websites using NLP techniques. <br>
+        <em>Python, Generative AI</em>
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Customer Churn Analysis (Dec 2024 - Jan 2025 · 2 mos) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        Predicts customer churn for subscription services using machine learning models. <br>
+        <em>Python, Data Analytics, ML</em>
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Waste Classification using CNN (Jan 2025 · 1 mo) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        Classifies waste types using Convolutional Neural Networks. <br>
+        <em>Python, CNN, TensorFlow, OpenCV</em>
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Smart Sensor-Enhanced Public Safety Network (Oct-Dec 2024 · 3 mos) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        IoT-enabled public safety network integrating sensors and AI for real-time threat detection. <br>
+        <em>IoT, AI/ML, Cybersecurity</em>
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Smart Water Quality Monitoring (Aug-Sep 2024 · 2 mos) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        Monitors water quality parameters using IoT sensors with live visualization. <br>
+        <em>IoT, Sensors, Data Visualization</em>
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Pixel Manipulation for Image Encryption (Jun 2024 · 1 mo) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        Encrypts images by manipulating pixel values to secure visual data. <br>
+        <em>Python</em>
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Responsive Landing Page (Jun 2024 · 1 mo) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        Created a fully responsive landing page with modern UI/UX design principles. <br>
+        <em>HTML, CSS, JavaScript</em>
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Big Sales Prediction (Apr-May 2024 · 2 mos) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        Predicts big sales trends using historical data and Random Forest Regression. <br>
+        <em>Python, Pandas, ML</em>
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Handwritten Digit Recognition (Apr-May 2024 · 2 mos) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        Digit classification using standard datasets with ML models. <br>
+        <em>Python, Datasets, Colab</em>
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Face Reaction Model (May 2024 · 1 mo) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        Recognizes and classifies facial expressions to monitor user reactions. <br>
+        <em>Python, Colab</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Internships -->
+<section id="experience">
+  <h3>Internships & Experience</h3>
+  <div class="grid">
+    <div class="collapsible-card">
+      <div class="card-header">1M1B — Green Intern (Aug 2025 - Present · Remote) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">Worked on AI projects and sustainability analytics. Developed Green AI models and contributed to environmental impact dashboards.</div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">IBM SkillsBuild — AI/ML Intern (Jul 2025 · Remote) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">Promoted AI safety practices, trained students on ML algorithms, and developed ML model evaluation frameworks.</div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Edunet Foundation — IBM Cloud & AI Internship (Jul 2024 · Remote) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">Implemented cloud-based AI solutions and learned deployment of AI models on IBM Cloud.</div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">HunarIntern — Data Science Intern (Aug 2024 · Remote) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">Performed data analysis, visualization, and preprocessing for real-world datasets using Python and Tableau.</div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Prodigy InfoTech — Data Science Intern (Aug 2024 · Remote) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">Developed predictive models and performed data cleaning and feature engineering for client projects.</div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">AWS — AI-ML Intern (Jan-Mar 2024 · Remote) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">Built and trained ML models, experimented with different AI architectures, and deployed solutions in cloud environments.</div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Pantech.AI — AI Intern (Apr-Jun 2024 · Remote) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">Developed AI and deep learning models for real-time projects, including object detection and classification tasks.</div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">PRASUNET — DS Intern (Jun-Jul 2024 · Remote) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">Analyzed datasets, visualized results, and created dashboards to support business decisions.</div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Pantech.AI — ML Intern (Dec 2024 · Remote) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">Worked on ML projects, implemented algorithms, and performed model evaluation and optimization.</div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Codec Tech — Data Analyst Intern (Dec 2024 - Feb 2025 · Hybrid) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">Performed data analytics tasks, created visualizations, and supported decision-making with data insights.</div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Edunet — Shell Skills4Future AI-GreenSkills Internship (Jan-Feb 2025 · Remote) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">Focused on Green Skills using AI technologies, including energy optimization and environmental data analysis.</div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Google Developers — Android Developer Intern (Sep-Nov 2023 · Remote) <span class="toggle-icon">▼</span></div>
+      <div class="card-content">Developed Android applications and implemented interactive features for user experience enhancement.</div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Skills -->
+  <!-- Skills -->
+<section id="skills">
+  <h3>Skills</h3>
+  <div class="grid">
+    <div class="collapsible-card">
+      <div class="card-header">Python <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        Data Science<br>
+        ML<br>
+        AI Development<br>
+        Data Analysis<br>
+        Data Visualization<br>
+        Pandas<br>
+        Seaborn<br>
+        Colab
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Machine Learning & Deep Learning <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        Supervised Learning<br>
+        Unsupervised Learning<br>
+        Regression<br>
+        Classification<br>
+        CNN<br>
+        RNN<br>
+        YOLOv5<br>
+        TensorFlow<br>
+        Keras
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">AI & Generative AI <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        AI Safety<br>
+        Responsible AI<br>
+        Generative AI Studio<br>
+        NLP<br>
+        AI Career Adviser<br>
+        Predictive Modeling
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Data Analytics & Visualization <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        Tableau<br>
+        Power BI<br>
+        Spreadsheets<br>
+        Data Modeling<br>
+        Feature Engineering<br>
+        Churn Analysis<br>
+        Big Sales Prediction
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Cloud & Big Data <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        IBM Cloud<br>
+        AWS<br>
+        Data Engineering<br>
+        Big Data Analytics<br>
+        Cloud Foundation
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Computer Vision & Image Processing <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        OpenCV<br>
+        Image Processing<br>
+        YOLOv5<br>
+        CNN<br>
+        Face Reaction Model<br>
+        Waste Classification
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">IoT & Embedded Systems <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        IoT<br>
+        Embedded Systems<br>
+        Sensors<br>
+        Smart Safety Network<br>
+        Drone Operation
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Web & Frontend <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        HTML<br>
+        CSS<br>
+        JavaScript<br>
+        Responsive UI/UX<br>
+        Website Design
+      </div>
+    </div>
+
+    <div class="collapsible-card">
+      <div class="card-header">Other Tools & Skills <span class="toggle-icon">▼</span></div>
+      <div class="card-content">
+        Splunk & MLTK<br>
+        API Development (Flask/FastAPI)<br>
+        Project Management<br>
+        Problem Solving<br>
+        Analytical Thinking<br>
+        Algorithmic Thinking
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Education -->
+  <section id="education">
+    <h3>Education</h3>
+    <div class="grid">
+      <div class="collapsible-card"><div class="card-header">Degree <span class="toggle-icon">▼</span></div><div class="card-content">Nehru Institute of Engineering and Technology, Coimbatore (2022–2026)<br>CGPA: 7.5<br>B.Tech Artificial Intelligence & Data Science</div></div>
+      <div class="collapsible-card"><div class="card-header">Higher Secondary <span class="toggle-icon">▼</span></div><div class="card-content">The Leaders Matric School Karaikudi<br>Marks: 440<br>73.33%</div></div>
+      <div class="collapsible-card"><div class="card-header">Secondary School <span class="toggle-icon">▼</span></div><div class="card-content">The Leaders Matric School Karaikudi<br>Marks: 434<br>86%</div></div>
+    </div>
+  </section>
+
+  <!-- Achievements -->
+  <section id="achievements">
+    <h3>Achievements & Activities</h3>
+    <div class="grid">
+      <div class="collapsible-card"><div class="card-header">Government AI/ML Internship at NTRO <span class="toggle-icon">▼</span></div><div class="card-content">Selected for prestigious NTRO internship</div></div>
+      <div class="collapsible-card"><div class="card-header">Chess Player ♟️ <span class="toggle-icon">▼</span></div><div class="card-content">Played in district & state level tournaments</div></div>
+      <div class="collapsible-card"><div class="card-header">Football Team ⚽ <span class="toggle-icon">▼</span></div><div class="card-content">Part of college team, developed teamwork & leadership</div></div>
+      <div class="collapsible-card"><div class="card-header">Hackathon Enthusiast 💻 <span class="toggle-icon">▼</span></div><div class="card-content">Actively participated in AI/ML hackathons</div></div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h3>Contact</h3>
+    <div class="grid">
+      <div class="card"><i class="fas fa-envelope"></i> <a href="mailto:deepaananthanar@gmail.com">deepaananthanar@gmail.com</a></div>
+      <div class="card"><i class="fas fa-phone"></i> <a href="tel:+918610378936">+91-8610378936</a></div>
+      <div class="card"><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/deepa-ananthan-ar" target="_blank">linkedin.com/in/deepa-ananthan-ar</a></div>
+    </div>
+  </section>
+
+  <footer>© 2025 Deepa ananthan AR</footer>
+
+  <script>
+    // Collapsible toggle
+    document.querySelectorAll('.collapsible-card .card-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const card = header.parentElement;
+        const content = card.querySelector('.card-content');
+        const icon = header.querySelector('.toggle-icon');
+        if (content.style.maxHeight) { content.style.maxHeight = null; if(icon) icon.textContent = "▼"; }
+        else { content.style.maxHeight = content.scrollHeight + "px"; if(icon) icon.textContent = "▲"; }
+      });
+    });
+
+    // 3D card flip
+    const card3d = document.querySelector('.card-3d');
+    card3d.addEventListener('click', () => {
+      card3d.classList.toggle('expanded');
+    });
+
+    // Stats counter
+    const counters = document.querySelectorAll('.count');
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const inc = Math.ceil(target / 50);
+        if (count < target) {
+          counter.innerText = count + inc;
+          setTimeout(updateCount, 40);
+        } else {
+          counter.innerText = target + "+";
+        }
+      };
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            updateCount();
+            observer.unobserve(counter);
+          }
+        });
+      }, { threshold: 0.5 });
+      observer.observe(counter);
+    });
+  </script>
+</body>
+</html>
